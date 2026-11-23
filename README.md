@@ -1,3 +1,5 @@
 # gha-szkolenie-23-11-2026
 
 Moj pierwsza zmian w repo
+
+TA zmiana zostanie prze PR dostarczon do CW03
