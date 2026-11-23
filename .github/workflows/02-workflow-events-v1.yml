@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - CW02
+  # manual trigger
   workflow_dispatch:
 
 jobs:
