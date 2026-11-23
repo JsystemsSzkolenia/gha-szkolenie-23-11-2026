@@ -12,6 +12,8 @@ jobs:
         run: |
           java -version
           env
+          echo "SPRAWDZANIE POPRAWNOSCI"
+          echo $?
       - name: Say hello
         run: echo "Hello, World!"
       - name: Utworz plik
