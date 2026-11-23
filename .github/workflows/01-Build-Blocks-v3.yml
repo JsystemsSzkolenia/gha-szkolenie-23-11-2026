@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  # to jest osobna VM dla joba echo-hello
   echo-hello:
     name: Powitanie
     runs-on: ubuntu-latest
@@ -12,7 +13,9 @@ jobs:
       - name: Say hello
         run: echo "Hello, World!"
 
+  # to jest osobna VM dla joba echo-goodbye
   echo-goodbye:
+    name: Pożegnanie
     runs-on: ubuntu-latest
     steps:
       - name: Successful step
