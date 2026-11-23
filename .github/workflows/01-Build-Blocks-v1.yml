@@ -6,7 +6,7 @@ on:
 
 jobs:
   echo-hello:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Lista plikow i katalogów
         run: ls -la
@@ -28,7 +28,7 @@ jobs:
         run: cat nowy_plik.txt
 
   echo-goodbye:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: echo-hello
     steps:
       - name: Show environment
