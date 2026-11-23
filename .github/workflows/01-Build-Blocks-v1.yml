@@ -8,6 +8,8 @@ jobs:
   echo-hello:
     runs-on: ubuntu-latest
     steps:
+      - name: Lista plikow i katalogów
+        run: ls -la
       - name: Show environment
         run: |
           java -version
