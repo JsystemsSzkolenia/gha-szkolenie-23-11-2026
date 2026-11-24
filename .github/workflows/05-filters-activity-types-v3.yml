@@ -4,11 +4,11 @@ run-name: CI for ${{ github.sha }} "05-usung-filters-and-activity-types"
 
 on:
   push:
-    branches: [ CW05 ]
+    branches: [ CW05v2 ]
     paths-ignore:
       - 'CWICZENIA/05-usung-filters-and-activity-types/dokumentacja/**'
   pull_request:
-    branches: [ CW05 ]
+    branches: [ CW05v2 ]
     paths-ignore:
       - 'CWICZENIA/05-usung-filters-and-activity-types/dokumentacja/**'
   # opcjonalnie: ręczne odpalenie
