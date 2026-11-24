@@ -14,6 +14,8 @@ on:
 
 env:
   MY_KLUCZYK: "${{ secrets.API_KEY }}"
+  MY_DRUGI_KEY: "9ab97aa4e9f307c97e35ae21a2410532"
+
 
 jobs:
   pogoda-info:
@@ -29,3 +31,4 @@ jobs:
       - name: Sprawdzanie pogody
         run: |
           bash ./start.sh "${{ inputs.city }}" "${{ env.MY_KLUCZYK }}" >> $GITHUB_STEP_SUMMARY
+          echo "${{ env.MY_DRUGI_KEY }}"
