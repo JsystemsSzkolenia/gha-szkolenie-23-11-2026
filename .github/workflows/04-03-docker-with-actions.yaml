@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   build-test:
-    runs-on: selfhostlinux
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
