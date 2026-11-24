@@ -14,7 +14,7 @@ on:
 
 env:
   MY_KLUCZYK: "${{ secrets.API_KEY }}"
-  MY_DRUGI_KEY: "9ab97aa4e9f307c97e35ae21a2410532-dopisal"
+  MY_DRUGI_KEY: "9ab97aa4e9f307c97e35ae21a241053-dopisal"
 
 
 jobs:
