@@ -29,4 +29,3 @@ jobs:
       - name: Sprawdzanie pogody
         run: |
           bash ./start.sh "${{ inputs.city }}" "${{ env.MY_KLUCZYK }}" >> $GITHUB_STEP_SUMMARY
-          echo "${{ env.MY_DRUGI_KEY }}"
