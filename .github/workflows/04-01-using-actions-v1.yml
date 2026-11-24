@@ -16,11 +16,18 @@ jobs:
       # 1 bez tego nie mamy kodu źródłowego do dalszych kroków
       - name: Checkout Code
         uses: actions/checkout@v4
+      # 1.1
+      - name: Pokaz co sklonowales
+        run: ls -la
+        working-directory: ./
       # 2
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+      # 2.1
+      - name: Pokaz co sklonowales
+        run: ls -la
       # 3
       - name: Install Dependencies
         run: npm ci
