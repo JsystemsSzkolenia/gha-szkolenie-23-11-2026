@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Code
@@ -31,14 +31,14 @@ jobs:
         run: |
           set -eux
           # uruchamiamy w tle, mapujemy port 8080 na hosta
-          CID=$(docker run -d -p 8080:80 "${IMAGE_TAG}")
+          CID=$(docker run -d -p 18080:80 "${IMAGE_TAG}")
           echo "CID=${CID}" >> "$GITHUB_ENV"
 
       - name: Wait for Nginx to be ready
         run: |
           set -eux
           for i in {1..30}; do
-            if curl -fsS http://localhost:8080/ >/dev/null; then
+            if curl -fsS http://localhost:18080/ >/dev/null; then
               echo "Nginx odpowiada"; exit 0
             fi
             sleep 1
@@ -49,7 +49,7 @@ jobs:
       - name: Test page content with curl
         run: |
           set -eux
-          BODY=$(curl -fsS http://localhost:8080/)
+          BODY=$(curl -fsS http://localhost:18080/)
           echo "----- PAGE BODY START -----"
           echo "$BODY"
           echo "------ PAGE BODY END ------"
