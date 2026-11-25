@@ -1,10 +1,10 @@
 name: 07-02b Pogoda API CI
 
 on:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches: [ main ]
   pull_request:
-    branches: [ feature/07-pogoda-api ]
+    branches: [ feature/07-pogoda-api, main ]
   workflow_dispatch:
 
 env:
