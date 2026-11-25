@@ -7,3 +7,5 @@ TA zmiana zostanie prze PR dostarczon do CW03
 Zmian do CW05v2 - dalej zmianiam.
 
 pogoda3
+
+CW07 [skip tests]
