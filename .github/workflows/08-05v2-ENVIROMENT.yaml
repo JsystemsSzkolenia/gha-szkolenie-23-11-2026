@@ -127,7 +127,7 @@ jobs:
     needs: test
     if: >-
       (github.event_name == 'push' || github.event_name == 'pull_request') &&
-      github.ref_name == ('dev')
+      github.ref == 'refs/heads/dev'
     environment: dev
     concurrency:
       group: pogoda-env-publish-dev
@@ -275,7 +275,7 @@ jobs:
     needs: [test]
     if: >-
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
-      github.ref_name == ('main')
+      github.ref == 'refs/heads/main'
     environment: prod
     concurrency:
       group: pogoda-env-publish-prod
