@@ -14,7 +14,7 @@ jobs:
           # zapis w formacie klucz=wartość do pliku wskazanego przez $GITHUB_OUTPUT
           echo "run_job_b=no" >> "$GITHUB_OUTPUT"
       - run: |
-          exit 1
+          exit 0
     outputs:
       run_job_b: ${{ steps.set.outputs.run_job_b }}
   b:
