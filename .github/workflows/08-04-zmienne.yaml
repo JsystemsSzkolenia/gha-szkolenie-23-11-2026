@@ -41,6 +41,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Reference
+        run: echo ${{ github.ref_name }}
       - name: Validate build configuration
         run: |
           for variable in WORKDIR DOCKERHUB_USERNAME DOCKER_IMAGE_NAME DOCKERHUB_TAG DEPLOY_BRANCH; do
