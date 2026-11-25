@@ -50,8 +50,8 @@ jobs:
     steps:
       - name: print
         run: |
-          echo "GitHub ref: ${{ github.ref }}"
-          echo "GitHub ref name: ${{ github.ref_name }}"
+          echo "GitHub ref: ${{ github.head_ref }}"
+          echo "GitHub ref name: ${{ github.base_ref }}"
       
       - name: Checkout repository
         uses: actions/checkout@v4
