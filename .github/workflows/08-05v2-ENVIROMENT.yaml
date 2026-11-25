@@ -52,6 +52,7 @@ jobs:
         run: |
           echo "GitHub ref: ${{ github.head_ref }}"
           echo "GitHub ref name: ${{ github.base_ref }}"
+          echo "GitHub ref name: ${{ github.ref_name }}"
       
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -280,7 +281,7 @@ jobs:
     needs: [test]
     if: >-
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
-      github.head_ref == 'main'
+      github.ref_name == 'main'
     environment: prod
     concurrency:
       group: pogoda-env-publish-prod
