@@ -48,6 +48,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: print
+        run: |
+          echo "GitHub ref: ${{ github.ref }}"
+          echo "GitHub ref name: ${{ github.ref_name }}"
+      
       - name: Checkout repository
         uses: actions/checkout@v4
 
