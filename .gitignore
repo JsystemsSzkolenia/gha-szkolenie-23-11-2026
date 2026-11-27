@@ -38,5 +38,11 @@ terraform.rc
 # Klucze SSH generowane w ćwiczeniach.
 /CWICZENIA_TERRAFORM/**/.keys/
 
+# Lokalne dane ćwiczeń Ansible: jawny klucz API i adres hosta uczestnika.
+/CWICZENIA_TERRAFORM/**/vars.local.yml
+/CWICZENIA_TERRAFORM/**/inventory.ini
+/CWICZENIA_TERRAFORM/**/.collections/
+/CWICZENIA_TERRAFORM/**/*.retry
+
 # .terraform.lock.hcl i przykładowe *.tfvars.example pozostają wersjonowane
 # poza całkowicie ignorowanym katalogiem rozwiazanie_ukryte.

@@ -330,6 +330,71 @@ W WWW wpisz własne miasto. Do użytkowania nie podajesz klucza API.
 Jeśli dostajesz stronę domyślną Nginxa lub `502`, wróć do konfiguracji proxy,
 stanu kontenera i jego lokalnego endpointu.
 
+### Gdy bootstrap kończy się kodem `124`
+
+Kod `124` oznacza przekroczenie limitu czasu polecenia. Teraz znajdź ostatni
+wpis `[bootstrap] START`, `END` lub `TIMEOUT` i odczytaj `stage`, `exit`
+oraz `duration`. Limity dla `cloud-init-wait`, `apt-update` i `apt-install`
+wynoszą odpowiednio 480, 300 i 600 sekund. Sam łączny czas joba nie wskazuje,
+które polecenie się zatrzymało.
+
+W [przykładowym nieudanym przebiegu](https://github.com/JsystemsSzkolenia/gha-szkolenie-23-11-2026/actions/runs/45957698114/job/140367920148)
+potwierdzono timeout `apt-install`: pakiety zostały pobrane, Docker i Nginx
+przeszły konfigurację, a ostatni komunikat dotyczył `Processing triggers for
+man-db`. Nie ustala to jeszcze procesu, który zatrzymał zakończenie APT.
+Ten pierwszy provisioner przygotowuje system i usługi; nie używa klucza
+OpenWeatherMap ani nie pobiera obrazu aplikacji.
+
+Poprawiony bootstrap czeka ograniczony czas na zwolnienie blokad pakietów,
+wyłącza przebudowę indeksu dokumentacji `man-db` podczas instalacji pakietów
+i sprawdza, czy trzeba dokończyć przerwaną konfigurację `dpkg`. Nie wyłącza
+aktualizacji pakietów. Wznawia konfigurację tylko wtedy,
+gdy stan pakietów tego wymaga. Instaluje wyłącznie brakujące pakiety,
+a kolejne etapy mają własne limity i diagnostykę w logu.
+
+Jeśli problem się powtórzy, teraz wykonaj **ręczną diagnostykę przez SSH**
+z własnego hosta agenta. Podstaw rzeczywisty katalog state CW03 oraz publiczny
+IP wyłącznie własnej VM CW03. Użyj `public_ip` z metadanych własnego state;
+jeśli przerwany apply nie zapisał jeszcze tego outputu, sprawdź IP tej VM
+w panelu DigitalOcean. Nie wypisuj całego state, ponieważ zawiera klucz prywatny.
+
+```bash
+CW03_STATE_DIRECTORY="$HOME/terraform-state/cwiczenie03/IDENTYFIKATOR_REPOZYTORIUM"
+CW03_VM_IP="PUBLICZNY_IP_TWOJEJ_VM_CW03"
+ssh -i "$CW03_STATE_DIRECTORY/keys/id_ed25519" \
+  -o IdentitiesOnly=yes \
+  -o "UserKnownHostsFile=$CW03_STATE_DIRECTORY/known_hosts" \
+  -o StrictHostKeyChecking=accept-new \
+  "root@$CW03_VM_IP"
+```
+
+Jeżeli ustawiłeś `TF_STATE_ROOT`, dostosuj również katalog state.
+Po zalogowaniu teraz odczytaj stan usług, logi pakietów i dostępność zasobów:
+
+```bash
+cloud-init status --long
+systemctl status apt-daily.service apt-daily-upgrade.service --no-pager
+journalctl -u cloud-final -u apt-daily -u apt-daily-upgrade \
+  --since "30 minutes ago" --no-pager -n 100
+tail -n 80 /var/log/apt/term.log
+df -h
+free -h
+curl -4 -I --max-time 10 https://archive.ubuntu.com
+exit
+```
+
+To polecenia diagnostyczne; nie usuwaj blokad `dpkg`, nie zabijaj procesu APT
+i nie wyłączaj cloud-init. Ustal przyczynę na podstawie ostatniego etapu
+i logów. Nie publikuj state, prywatnego klucza ani pełnych logów z sekretami.
+
+Po zapisaniu poprawionego `files/bootstrap.sh` w repozytorium teraz uruchom
+**nowe Run workflow** z poprawionego commita. Funkcja **Re-run jobs** używa
+[tego samego commita co poprzedni przebieg](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs).
+Zachowaj dotychczasowy state, klucz i VM. Hash pliku w `triggers_replace`
+powoduje ponowienie `terraform_data.application`; po błędzie provisionera
+Terraform również planuje ponowienie tego zasobu. Sprawdź w planie, że ponawiasz
+konfigurację aplikacji, zamiast wymieniać VM. Nie twórz nowego state jako naprawy.
+
 ## 14. Ponów wdrożenie i przećwicz zmianę sekretu
 
 Teraz uruchom ponownie apply bez zmian. Terraform ma użyć tego samego state,
