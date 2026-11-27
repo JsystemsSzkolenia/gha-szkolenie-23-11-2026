@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        env: [dev, staging, prod]
+        env: [dev, staging, prod, test]
 
     steps:
       - name: Checkout repo
