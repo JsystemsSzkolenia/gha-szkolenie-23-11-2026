@@ -1,0 +1,42 @@
+# Lokalne rozwiązania prowadzącego — nie trafiają do repozytorium uczniów.
+/CWICZENIA_TERRAFORM/**/rozwiazanie_ukryte/
+
+# Terraform — reguły obowiązują we wszystkich katalogach repozytorium.
+# Pobrane providery, moduły i lokalne metadane.
+.terraform/
+
+# Stan, kopie stanu i jego blokady mogą zawierać hasła i prywatne klucze.
+*.tfstate
+*.tfstate.*
+
+# Lokalne wartości zmiennych: terraform.tfvars, terraform.tfvars.json,
+# a także *.auto.tfvars i *.auto.tfvars.json.
+*.tfvars
+*.tfvars.json
+
+# Zapisane plany mogą zawierać dane wrażliwe.
+*.tfplan
+tfplan
+*.tfplan.json
+tfplan.json
+
+# Raporty awarii i lokalne nadpisania konfiguracji.
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Lokalne ustawienia CLI, poświadczenia i cache Terraform.
+.terraformrc
+terraform.rc
+.terraform.d/
+*.tfrc
+*.tfrc.json
+
+# Klucze SSH generowane w ćwiczeniach.
+/CWICZENIA_TERRAFORM/**/.keys/
+
+# .terraform.lock.hcl i przykładowe *.tfvars.example pozostają wersjonowane
+# poza całkowicie ignorowanym katalogiem rozwiazanie_ukryte.
